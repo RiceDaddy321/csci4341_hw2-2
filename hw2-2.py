@@ -1,13 +1,13 @@
 import tensorflow as tf
 from tensorflow import keras
-from tensorflow.keras import layers
+from keras import layers
 import numpy as np
 import matplotlib.pyplot as plt
 import os
 import gdown
 from zipfile import ZipFile
 
-os.makedirs("celeba_gan")
+#os.makedirs("celeba_gan")
 
 # url = "https://drive.google.com/uc?id=1O7m1010EJjLE5QxLZiM9Fpjs7Oj6e684"
 # output = "./celeba_gan/data.zip"
@@ -141,7 +141,7 @@ class GANMonitor(keras.callbacks.Callback):
 
 epochs = 100  # In practice, use ~100 epochs
 
-gan = GAN(discriminator=discriminator, generator=generator, latent_dim=latent_di)
+gan = GAN(discriminator=discriminator, generator=generator, latent_dim=latent_dim)
 gan.compile(
     d_optimizer=keras.optimizers.Adam(learning_rate=0.0001),
     g_optimizer=keras.optimizers.Adam(learning_rate=0.0001),
