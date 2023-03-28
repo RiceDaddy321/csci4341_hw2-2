@@ -9,13 +9,6 @@ from zipfile import ZipFile
 
 #os.makedirs("celeba_gan")
 
-# url = "https://drive.google.com/uc?id=1O7m1010EJjLE5QxLZiM9Fpjs7Oj6e684"
-# output = "./celeba_gan/data.zip"
-# # gdown.download(url, output, quiet=True)
-#
-# with ZipFile("celeba_gan/data.zip", "r") as zipobj:
-#     zipobj.extractall("celeba_gan")
-
 dataset = keras.utils.image_dataset_from_directory(
     "metal_logos", label_mode=None, image_size=(64, 64), batch_size=32
 )
@@ -126,20 +119,22 @@ class GAN(keras.Model):
         }
 
 class GANMonitor(keras.callbacks.Callback):
-    def __init__(self, num_img=3, latent_dim=128):
+    def __init__(self, num_img=3, latent_dim=128, space_out=100):
         self.num_img = num_img
         self.latent_dim = latent_dim
+        self.space_out = space_out
 
     def on_epoch_end(self, epoch, logs=None):
         random_latent_vectors = tf.random.normal(shape=(self.num_img, self.latent_dim))
         generated_images = self.model.generator(random_latent_vectors)
         generated_images *= 255
         generated_images.numpy()
-        for i in range(self.num_img):
-            img = keras.preprocessing.image.array_to_img(generated_images[i])
-            img.save("generated_img_%03d_%d.png" % (epoch, i))
+        if epoch % self.space_out == 0:
+            for i in range(self.num_img):
+                img = keras.preprocessing.image.array_to_img(generated_images[i])
+                img.save("generated_images/generated_img_%03d_%d.png" % (epoch, i))
 
-epochs = 100  # In practice, use ~100 epochs
+epochs = 1000  # In practice, use ~100 epochs
 
 gan = GAN(discriminator=discriminator, generator=generator, latent_dim=latent_dim)
 gan.compile(
@@ -149,5 +144,5 @@ gan.compile(
 )
 
 gan.fit(
-    dataset, epochs=epochs, callbacks=[GANMonitor(num_img=10, latent_dim=latent_dim)]
+    dataset, epochs=epochs, callbacks=[GANMonitor(num_img=1, latent_dim=latent_dim)]
 )
