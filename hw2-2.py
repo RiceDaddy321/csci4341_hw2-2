@@ -10,7 +10,7 @@ from zipfile import ZipFile
 #os.makedirs("celeba_gan")
 
 dataset = keras.utils.image_dataset_from_directory(
-    "metal_logos", label_mode=None, image_size=(64, 64), batch_size=32
+    "metal_dataset", label_mode=None, image_size=(64, 64), batch_size=32
 )
 dataset = dataset.map(lambda x: x / 255.0)
 
