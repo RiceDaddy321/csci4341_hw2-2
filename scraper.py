@@ -39,7 +39,7 @@ hdr = {
 ##PUT FOR HERE
 for i, band in enumerate(bands):
     try:
-        i += 500
+        i += 1500
         url = 'https://www.metal-archives.com/bands/{}'.format(band)
         page = requests.get(url, headers=hdr)
         # Check for 200(ok) HTTP status code.

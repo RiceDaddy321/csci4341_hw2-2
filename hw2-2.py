@@ -1,11 +1,6 @@
 import tensorflow as tf
 from tensorflow import keras
 from keras import layers
-import numpy as np
-import matplotlib.pyplot as plt
-import os
-import gdown
-from zipfile import ZipFile
 
 #os.makedirs("celeba_gan")
 
@@ -134,7 +129,7 @@ class GANMonitor(keras.callbacks.Callback):
                 img = keras.preprocessing.image.array_to_img(generated_images[i])
                 img.save("generated_images/generated_img_%03d_%d.png" % (epoch, i))
 
-epochs = 1000  # In practice, use ~100 epochs
+epochs = 40000  # In practice, use ~100 epochs
 
 gan = GAN(discriminator=discriminator, generator=generator, latent_dim=latent_dim)
 gan.compile(
