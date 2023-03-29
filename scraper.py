@@ -38,7 +38,7 @@ hdr = {
 ##PUT FOR HERE
 for i, band in enumerate(bands):
     try:
-        i += 1500
+        i += 2500 + 1
         url = band
         page = requests.get(url, headers=hdr)
         # Check for 200(ok) HTTP status code.
@@ -51,7 +51,7 @@ for i, band in enumerate(bands):
             container = soup.find(id="logo", class_="image", href=True)
 
             if container is None:
-                print("Failed to get image for {}: \n{}".format(band, url))
+                print("Failed to get image for {}\n".format(url))
                 continue
 
             # extract the href
@@ -78,9 +78,9 @@ for i, band in enumerate(bands):
             #
             # urllib.request.urlretrieve(imgURL, "D:/abc/image/local-filename.jpg")
 
-            print("{} written to {}. Downloaded from {}".format(band, img_name, img_url))
+            print("{} written to {}.".format(band, img_name))
         else:
-            print("Failed to get image for {}: \n{}".format(band, url))
+            print("Failed to get image for {}\n".format(url))
     except Error:
         continue
 print("Finished downloading images")
