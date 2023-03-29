@@ -38,7 +38,7 @@ hdr = {
 ##PUT FOR HERE
 for i, band in enumerate(bands):
     try:
-        i += 2500 + 1
+        i += 3500 + 1
         url = band
         page = requests.get(url, headers=hdr)
         # Check for 200(ok) HTTP status code.
