@@ -23,8 +23,7 @@ with open("bandsTable.html") as f:
     # now only get the text
     for band in tmp:
         band_text = band.a.get('href')
-        underscored_text = band_text.split('/')[4]
-        bands.append(underscored_text)
+        bands.append(band_text)
 
 output_path = "metal_dataset"
 # Define POST request parameters.
@@ -40,7 +39,7 @@ hdr = {
 for i, band in enumerate(bands):
     try:
         i += 1500
-        url = 'https://www.metal-archives.com/bands/{}'.format(band)
+        url = band
         page = requests.get(url, headers=hdr)
         # Check for 200(ok) HTTP status code.
         if (page.status_code == 200):
